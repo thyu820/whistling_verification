@@ -1,0 +1,48 @@
+# 實驗配置模板
+experiment:
+  name: "口哨聲聲者驗證基準實驗"
+  description: "使用基本特徵的GMM-UBM模型"
+
+data:
+  input_dir: "data/processed"
+  features_dir: "data/features"
+  train_ratio: 0.7
+  random_seed: 42
+
+features:
+  mfcc:
+    extract: true
+    n_mfcc: 20
+    delta: true
+    delta_delta: true
+    cmvn: true
+  
+  pitch:
+    extract: true
+    min_f0: 80
+    max_f0: 500
+    method: "pyin"
+  
+  spectral:
+    extract: true
+    extract_lpc: true
+    extract_hnr: true
+
+model:
+  type: "gmm_ubm"  # 可選: "gmm_ubm", "ivector"
+  
+  gmm_ubm:
+    n_components: 128
+    covariance_type: "diag"
+    n_iter: 100
+  
+  ivector:
+    tv_dim: 400
+    n_iter: 10
+
+evaluation:
+  metrics: ["eer", "min_dcf", "auc"]
+  p_target: 0.01
+  c_miss: 10
+  c_fa: 1
+

@@ -1,0 +1,23 @@
+# 特徵提取配置
+input_dir: "data/processed"
+output_dir: "data/features"
+
+features:
+  mfcc:
+    extract: true
+    n_mfcc: 20
+    delta: true
+    delta_delta: true
+    cmvn: true
+  
+  pitch:
+    extract: true
+    min_f0: 80
+    max_f0: 500
+    method: "pyin"
+  
+  spectral:
+    extract: true
+    extract_lpc: true
+    extract_hnr: true
+
